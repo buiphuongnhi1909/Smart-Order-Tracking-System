@@ -92,39 +92,12 @@ else:
         col3.metric("Delayed", f"{delay}")
         col4.metric("Total Distance", f"{total_distance:.0f} km")
         st.markdown("---")
-        st.subheader(" AI Decision Support Summary")
-
-        X_all = df_ai[
-           [
-              "Fixed Costs",
-              "Maintenance",
-              "condition_encoded"
-            ]
-        ]
-        pred_all = model.predict(X_all)
-
-        predicted_on_time = (pred_all == 1).sum()
-        predicted_delay = (pred_all == 0).sum()
-
-        predicted_on_time_rate = predicted_on_time / len(pred_all) * 100
-        predicted_delay_rate = predicted_delay / len(pred_all) * 100
-
-        col_ai1, col_ai2, col_ai3 = st.columns(3)
-
-        col_ai1.metric(
-            "Predicted On Time",
-            f"{predicted_on_time} ({predicted_on_time_rate:.2f}%)"
+        st.subheader(" AI Prediction Summary")
+        st.write("**Prediction Target:** Delivery Status (On Time / Delayed)")
+        st.write("**Input Features:** Fixed Costs, Maintenance, Weather Condition")
+        st.write(f"**Model Accuracy:** {accuracy*100:.2f}%")
+        st.write( "**Business Purpose:** Predict the delivery status of future shipments to help logistics managers identify potential delivery risks before shipment execution, enabling proactive planning and operational decision-making."
         )
-
-        col_ai2.metric(
-            "Predicted Delayed",
-            f"{predicted_delay} ({predicted_delay_rate:.2f}%)"
-        )
-
-        col_ai3.metric(
-            "Model Accuracy",
-            f"{accuracy*100:.2f}%"
-        )   
 
         st.markdown("---")
         col_chart1, col_chart2 = st.columns(2)
@@ -223,11 +196,11 @@ else:
                         with res_col2:
                             if prediction == 1:
                                 st.success(f"### 🟢 Delivery Status Assessment")
-                                st.write("**Estimated Status:** ON TIME")
+                                st.write("**Final Status Status:** ON TIME")
                                 st.write(f"**Confidence Level:** {confidence:.2f}%")
                                 st.write("**Operational Recommendation:** Continue monitoring this shipment and maintain the planned delivery schedule.")
                             else:
                                 st.error(f"### 🔴 Delivery Status Assessment")
-                                st.write("**Estimated Status:** DELAYED")
+                                st.write("**Final Status:** DELAYED")
                                 st.write(f"**Confidence Level:** {confidence:.2f}%")
                                 st.write("**Operational Recommendation:** Prioritize operational follow-up and investigate possible causes of delay.")
