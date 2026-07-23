@@ -196,7 +196,7 @@ else:
                         with res_col2:
                             if prediction == 1:
                                 st.success(f"### 🟢 Delivery Status Assessment")
-                                st.write("**Final Status Status:** ON TIME")
+                                st.write("**Final Status:** ON TIME")
                                 st.write(f"**Confidence Level:** {confidence:.2f}%")
                                 st.write("**Operational Recommendation:** Continue monitoring this shipment and maintain the planned delivery schedule.")
                             else:
